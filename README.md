@@ -1,5 +1,5 @@
 ## My Restaurant List
-A movie list app using Express, Mongoose, ExpressHandlebars, Bootstrap and other packages.
+A restaurant list app using Express, Mongoose, ExpressHandlebars, Bootstrap and other packages.
 
 ### Main Page
 ![](https://raw.githubusercontent.com/elliottwuTW/restaurant-list-app/master/project_picture.png)
