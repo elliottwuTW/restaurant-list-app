@@ -60,7 +60,8 @@
                 </a>
               </div>
 
-              <form id="delete-restaurant" class="col" action="./restaurants/{{this._id}}/delete" method="POST">
+              <form id="delete-restaurant" class="col" action="./restaurants/{{this._id}}/delete" method="POST"
+                onsubmit="return deleteCheck()">
                 <button type="submit" class="text-danger" style="border: none; background: #fff;">
                   <i class="far fa-trash-alt fa-2x"></i>
                 </button>

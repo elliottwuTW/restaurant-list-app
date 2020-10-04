@@ -26,7 +26,7 @@ const seedRestaurants = [
     "id": 2,
     "name": "梅子鰻蒲燒專賣店",
     "name_en": "Umeko Japanese Unagi House",
-    "category": "日本料理",
+    "category": "日式料理",
     "image": "https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5628/02.jpg",
     "location": "台北市中山區林森北路 107 巷 8 號",
     "phone": " 02 2521 2813",
