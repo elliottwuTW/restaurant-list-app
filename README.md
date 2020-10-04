@@ -25,7 +25,7 @@ mkdir <project-folder>
 cd <project-folder>
 
 # Clone the project
-git clone https://github.com/elliottwuTW/express-restaurant-list.git
+git clone https://github.com/elliottwuTW/restaurant-list-app.git
 
 # Install all dependencies
 npm install
