@@ -4,7 +4,8 @@ const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 
-const Restaurant = require('./models/restaurant')
+const Restaurant = require('./models/restaurant.js')
+const restaurantStyles = require('./models/restaurantStyle.json')
 
 // Create the Express app
 const app = express()
@@ -24,7 +25,13 @@ db.once('open', () => {
 // Set the template engine
 app.engine('hbs', exphbs({
   defaultLayout: 'layout',
-  extname: '.hbs'
+  extname: '.hbs',
+  // Handlebars helper
+  helpers: {
+    ifEquals: function (arg1, arg2, options) {
+      return (arg1 === arg2) ? options.fn(this) : options.inverse(this)
+    }
+  }
 }))
 app.set('view engine', 'hbs')
 
@@ -59,25 +66,54 @@ app.get('/search', (req, res) => { // Search restaurants by keyword
     })
 })
 app.get('/restaurants/new', (req, res) => { // Render the page that can create a new restaurant
-  res.render('new')
+  res.render('new', { restaurantStyles })
+})
+app.get('/restaurants/:id', (req, res) => { // Read a specific restaurant info
+  const id = req.params.id
+
+  // get the specific restaurant
+  Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('detail', { restaurant }))
+    .catch(err => console.error(err))
+})
+app.get('/restaurants/:id/edit', (req, res) => { // Render the page that can update a specific restaurant info
+  const id = req.params.id
+
+  // get the specific restaurant
+  Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('edit', { restaurant, restaurantStyles }))
+    .catch(err => console.error(err))
 })
 
 // Set POST routing
 app.post('/restaurants', (req, res) => {
-  const restaurantInfo = req.body
+  const newRestaurantInfo = Object.assign({}, req.body)
 
   // create a new restaurant
-  Restaurant.create({
-    name: restaurantInfo.name,
-    name_en: restaurantInfo.name_en,
-    category: restaurantInfo.category,
-    image: restaurantInfo.image,
-    location: restaurantInfo.location,
-    phone: restaurantInfo.phone,
-    google_map: restaurantInfo.google_map,
-    rating: restaurantInfo.rating,
-    description: restaurantInfo.description
-  })
+  Restaurant.create(newRestaurantInfo)
+    .then(() => res.redirect('/'))
+    .catch(err => console.error(err))
+})
+app.post('/restaurants/:id/edit', (req, res) => { // Update the restaurant info, and redirect to the main page
+  const id = req.params.id
+  const updatedRestaurant = Object.assign({}, req.body)
+
+  // get the specific restaurant
+  Restaurant.findById(id)
+    .then(restaurant => {
+      Object.assign(restaurant, updatedRestaurant)
+      restaurant.save()
+    })
+    .then(() => res.redirect(`/restaurants/${id}`))
+    .catch(err => console.error(err))
+})
+app.post('/restaurants/:id/delete', (req, res) => { // Delete the specific restaurant, and redirect to the main page
+  const id = req.params.id
+
+  Restaurant.findById(id)
+    .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
     .catch(err => console.error(err))
 })

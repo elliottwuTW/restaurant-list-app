@@ -1,0 +1,66 @@
+<div class="container mt-5" style="max-width: 900px;">
+  <form action="/restaurants/{{restaurant._id}}/edit" method="POST">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="name">餐廳名稱</label>
+        <input type="text" class="form-control" id="name" placeholder="陶板屋和風創作料理" name="name"
+          value="{{restaurant.name}}" required>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="name_en">英文店名</label>
+        <input type="text" class="form-control" id="name_en" placeholder="Tokiya" name="name_en"
+          value="{{restaurant.name_en}}" required>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="category">風格</label>
+        <select id="category" class="form-control" name="category">
+          {{#each restaurantStyles}}
+          <option {{#ifEquals ../restaurant.category this}}selected{{/ifEquals}}>{{this}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="image">店家照片網址</label>
+      <input type="url" class="form-control" id="image"
+        placeholder="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5628/02.jpg" name="image"
+        value="{{restaurant.image}}" required>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="location">地址</label>
+        <input type="text" class="form-control" id="location" placeholder="/縣市 /區 /路 /段 /號" name="location"
+          value="{{restaurant.location}}" required>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="phone">電話</label>
+        <input type="text" class="form-control" id="phone" placeholder="04 2319 9323" name="phone"
+          value="{{restaurant.phone}}" required>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="rating">評分</label>
+        <input type="" class="form-control" id="rating" placeholder="4.1" name="rating" min="0.0" max="5.0" step="0.1"
+          value="{{restaurant.rating}}" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="google_map">Google Map 網址</label>
+      <input type="url" class="form-control" id="google_map" placeholder="" name="google_map"
+        value="{{restaurant.google_map}}" required>
+    </div>
+    <div class="form-group">
+      <label for="description">店家描述</label>
+      <textarea class="form-control" id="description" rows="3" name="description"
+        required>{{restaurant.description}}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">儲存</button>
+  </form>
+  <div class="row mb-3">
+    <div class="col-11"></div>
+    <div class="col-1">
+      <a href="/" class="text-secondary">
+        <i class="fas fa-home pr-2 fa-3x"></i>
+      </a>
+    </div>
+  </div>
+</div>

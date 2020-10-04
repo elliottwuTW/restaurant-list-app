@@ -1,4 +1,4 @@
-<div class="container mt-5" style="max-width: 900px;">
+<div class="container my-5" style="max-width: 900px;">
   <form action="/restaurants" method="POST">
     <div class="form-row">
       <div class="form-group col-md-4">
@@ -12,17 +12,13 @@
       <div class="form-group col-md-4">
         <label for="category">風格</label>
         <select id="category" class="form-control" name="category">
-          <option selected>台式料理</option>
-          <option>中式料理</option>
-          <option>日式料理</option>
-          <option>韓式料理</option>
-          <option>美式料理</option>
-          <option>義式料理</option>
-          <option>中東料理</option>
-          <option>飲料店</option>
-          <option>咖啡廳</option>
-          <option>甜品店</option>
-          <option>酒吧</option>
+          {{#each restaurantStyles}}
+          {{#if @first}}
+          <option selected>{{this}}</option>
+          {{else}}
+          <option>{{this}}</option>
+          {{/if}}
+          {{/each}}
         </select>
       </div>
     </div>
