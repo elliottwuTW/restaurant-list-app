@@ -50,15 +50,6 @@ header {
   border-color: #ced4da;
 }
 
-small {
-  display: none;
-}
-
-small.show {
-  display: block;
-  color: red;
-}
-
 .card {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }

@@ -5,20 +5,28 @@
       <form action="/search">
         <h4 class="mb-2">尋找餐廳：</h4>
         <div class="input-group">
-          <input id="input" type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類"
-            aria-label="Restaurant Name..." value="{{keyword}}" aria-describedby="search-button">
+          <input id="input" type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類、地址"
+            aria-label="Restaurant Name..." value="{{keyword}}" aria-describedby="search-button" required>
           <div class="input-group-append">
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
           </div>
         </div>
-        <small class="mt-1">Please type a keyword!</small>
       </form>
     </div>
   </div>
 </div>
 
 {{!-- all restaurants --}}
+{{#if restaurants}}
 <div class="container mt-5">
+  <div class="row mb-2">
+    {{#if keyword}}
+    {{else}}
+    <div class="col-md-10 col-12 mx-auto">
+      <a href="./restaurants/new" class="btn btn-success">新增口袋餐廳</a>
+    </div>
+    {{/if}}
+  </div>
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns">
@@ -47,3 +55,8 @@
     </div>
   </div>
 </div>
+{{else}}
+<div class="container mt-5 d-flex justify-content-center">
+  <h6>Oops, no results found! 擴增口袋名單中~</h6>
+</div>
+{{/if}}
