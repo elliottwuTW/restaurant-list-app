@@ -15,99 +15,66 @@
       </div>
       <div class="col-6">
         <div class="d-flex justify-content-end">
-          <div class="search-option">
+          <div class="sort-option">
             <select class="custom-select" onchange="this.form.submit()" name="option">
               {{#each sortOptions}}
               <option value="{{@key}}" {{#ifEquals ../targetOption @key}} selected {{/ifEquals}}>
                 {{this.text}}</option>
               {{/each}}
             </select>
-
           </div>
         </div>
       </div>
     </div>
-</div>
-</div>
-</form>
-
-{{!-- <div class="row">
-    <div class="col-6">
-      <div class="search-bar">
-        <form action="/search">
-          <div class="input-group">
-            <input id="input" type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類、地址"
-              aria-label="Restaurant Name..." value="{{keyword}}" aria-describedby="search-button" required>
-            <div class="input-group-append">
-              <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="col-6">
-      <div class="d-flex justify-content-end">
-        <div class="search-option">
-          <select class="custom-select">
-            {{#each searchOptions}}
-            <option value="{{@key}}" {{#ifEquals ../targetOption this}} selected {{/ifEquals}}>{{this}}</option>
-            {{/each}}
-          </select>
-        </div>
-      </div>
-
-    </div>
-  </div> --}}
+  </form>
 </div>
 
 {{!-- all restaurants --}}
 {{#if restaurants}}
 <div class="container mt-4">
   <div class="row">
-    <div class="col-12 mx-auto">
-      <div class="card-columns">
-        {{!-- Iterate the restaurantInfo array --}}
-        {{#each restaurants}}
-        <a href="./restaurants/{{this._id}}" class="text-secondary">
-          <div class="card mb-3">
-            <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
-            <div class="card-body p-3">
-              <h6 class="card-title mb-1">{{this.name}}</h6>
+    {{!-- Iterate the restaurantInfo array --}}
+    {{#each restaurants}}
+    <div class="col-md-4 col-sm-6">
+      <a href="./restaurants/{{this._id}}" class="text-secondary">
+        <div class="card mb-3">
+          <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
+          <div class="card-body p-3">
+            <h6 class="card-title mb-1">{{this.name}}</h6>
 
-              <div class="restaurant-category mb-1">
-                <i class="fas fa-utensils pr-2"></i> {{this.category}}
-              </div>
-
-              <span class="badge badge-pill badge-danger font-weight-normal">
-                {{this.rating}}
-                <i class="fas fa-star fa-xs"></i>
-              </span>
-
+            <div class="restaurant-category mb-1">
+              <i class="fas fa-utensils pr-2"></i> {{this.category}}
             </div>
-            <div class="row justify-content-center m-0 px-1 pt-0 pb-2">
-              <div class="col text-center align-self-center">
-                <a href="./restaurants/{{this._id}}/edit" class="text-secondary">
-                  <i class="far fa-edit fa-2x"></i>
-                </a>
-              </div>
-              <div class="col text-center align-self-center">
-                <a href="./restaurants/{{this._id}}" class="text-info">
-                  <i class="fas fa-info-circle fa-2x"></i>
-                </a>
-              </div>
 
-              <form id="delete-restaurant" class="col" action="./restaurants/{{this._id}}?_method=DELETE" method="POST"
-                onsubmit="return deleteCheck()">
-                <button type="submit" class="text-danger" style="border: none; background: #fff;">
-                  <i class="far fa-trash-alt fa-2x"></i>
-                </button>
-              </form>
-            </div>
+            <span class="badge badge-pill badge-danger font-weight-normal">
+              {{this.rating}}
+              <i class="fas fa-star fa-xs"></i>
+            </span>
+
           </div>
-        </a>
-        {{/each}}
-      </div>
+          <div class="row justify-content-center m-0 px-1 pt-0 pb-2">
+            <div class="col text-center align-self-center">
+              <a href="./restaurants/{{this._id}}/edit" class="text-secondary">
+                <i class="far fa-edit fa-2x"></i>
+              </a>
+            </div>
+            <div class="col text-center align-self-center">
+              <a href="./restaurants/{{this._id}}" class="text-info">
+                <i class="fas fa-info-circle fa-2x"></i>
+              </a>
+            </div>
+
+            <form id="delete-restaurant" class="col d-flex justify-content-center"
+              action="./restaurants/{{this._id}}?_method=DELETE" method="POST" onsubmit="return deleteCheck()">
+              <button type="submit" class="text-danger" style="border: none; background: #fff;">
+                <i class="far fa-trash-alt fa-2x"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </a>
     </div>
+    {{/each}}
   </div>
 </div>
 {{else}}

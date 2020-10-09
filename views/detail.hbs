@@ -3,6 +3,17 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-10 mx-auto">
+      <div class="row mb-2">
+        <div class="col-8"></div>
+        <div class="col-4 d-flex justify-content-center">
+          <a href="/restaurants/{{restaurant._id}}/edit" class="text-secondary">
+            <i class="far fa-edit px-2 fa-2x"></i>
+          </a>
+          <a href="/" class="text-secondary">
+            <i class="fas fa-home px-2 fa-2x"></i>
+          </a>
+        </div>
+      </div>
       <p class="mb-1">
         <span class="text-secondary">
           <i class="fas fa-utensils pr-2"></i>
@@ -37,19 +48,6 @@
       <img class="rounded mx-auto d-block mb-4 w-80" src="{{restaurant.image}}" alt="{{restaurant.name}}"
         style="max-width: 600px;">
 
-    </div>
-  </div>
-  <div class="row justify-content-start mb-3" style="max-width: 1000px;">
-    <div class="col-10 mx-auto"></div>
-    <div class="col-1">
-      <a href="/restaurants/{{restaurant._id}}/edit" class="text-secondary">
-        <i class="far fa-edit fa-3x"></i>
-      </a>
-    </div>
-    <div class="col-1">
-      <a href="/" class="text-secondary">
-        <i class="fas fa-home pr-5 fa-3x"></i>
-      </a>
     </div>
   </div>
 </div>

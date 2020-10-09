@@ -1,5 +1,10 @@
 <div class="container mt-5" style="max-width: 900px;">
   <form action="/restaurants/{{restaurant._id}}?_method=PUT" method="POST">
+    <div class="row mb-2 justify-content-end">
+      <a href="/" class="text-secondary">
+        <i class="fas fa-home pr-3 fa-2x"></i>
+      </a>
+    </div>
     <div class="form-row">
       <div class="form-group col-md-4">
         <label for="name">餐廳名稱</label>
@@ -53,14 +58,6 @@
       <textarea class="form-control" id="description" rows="3" name="description"
         required>{{restaurant.description}}</textarea>
     </div>
-    <button type="submit" class="btn btn-primary">儲存</button>
+    <button type="submit" class="btn btn-primary mb-3">儲存</button>
   </form>
-  <div class="row mb-3">
-    <div class="col-11"></div>
-    <div class="col-1">
-      <a href="/" class="text-secondary">
-        <i class="fas fa-home pr-2 fa-3x"></i>
-      </a>
-    </div>
-  </div>
 </div>
