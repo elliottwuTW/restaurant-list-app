@@ -15,7 +15,7 @@ User can
 - create a new restaurant
 - update a specific restaurant information
 - delete a specific restaurant
-- filter the restaurants by searching keywords
+- filter the restaurants by searching keywords or setting the sort option
 
 
 ### Quick Start
@@ -48,6 +48,7 @@ npm run dev
 - express-handlebars : 5.1.0
 - body-parser : 1.19.0
 - mongoose : 5.10.7
+- method-override : 3.0.0
 
 
 ### App Info
@@ -55,4 +56,4 @@ npm run dev
 Elliott Wu [elliottwuTW](https://github.com/elliottwuTW)
 
 #### Version
-1.0.0
+1.1.0
