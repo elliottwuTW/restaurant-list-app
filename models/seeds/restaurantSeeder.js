@@ -2,11 +2,7 @@
  * Set the default restaurant seeds and write them to MongoDB
  */
 const Restaurant = require('../restaurant')
-const mongoose = require('mongoose')
-
-mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
-
-const db = mongoose.connection
+const db = require('../../config/mongoose')
 
 // Seed data
 const seedRestaurants = [
