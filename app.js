@@ -3,6 +3,7 @@ const express = require('express')
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 const Restaurant = require('./models/restaurant.js')
 const restaurantStyles = require('./models/restaurantStyle.json')
@@ -35,11 +36,9 @@ app.engine('hbs', exphbs({
 }))
 app.set('view engine', 'hbs')
 
-// Set the static files
 app.use(express.static('public'))
-
-// Set the body-parser
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 // Set GET routing
 app.get('/', (req, res) => { // Main page
@@ -96,7 +95,7 @@ app.post('/restaurants', (req, res) => {
     .then(() => res.redirect('/'))
     .catch(err => console.error(err))
 })
-app.post('/restaurants/:id/edit', (req, res) => { // Update the restaurant info, and redirect to the main page
+app.put('/restaurants/:id', (req, res) => { // Update the restaurant info, and redirect to the main page
   const id = req.params.id
   const updatedRestaurant = Object.assign({}, req.body)
 
@@ -109,7 +108,7 @@ app.post('/restaurants/:id/edit', (req, res) => { // Update the restaurant info,
     .then(() => res.redirect(`/restaurants/${id}`))
     .catch(err => console.error(err))
 })
-app.post('/restaurants/:id/delete', (req, res) => { // Delete the specific restaurant, and redirect to the main page
+app.delete('/restaurants/:id', (req, res) => { // Delete the specific restaurant, and redirect to the main page
   const id = req.params.id
 
   Restaurant.findById(id)
