@@ -1,34 +1,70 @@
 <!-- search bar -->
-<div class="container search-bar">
-  <div class="search-bar-outer">
-    <div class="search-bar-inner">
-      <form action="/search">
-        <h4 class="mb-2">尋找餐廳：</h4>
-        <div class="input-group">
-          <input id="input" type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類、地址"
-            aria-label="Restaurant Name..." value="{{keyword}}" aria-describedby="search-button" required>
-          <div class="input-group-append">
-            <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+<div class="container mt-4">
+  <form action="/filter">
+    <div class="row">
+      <div class="col-6">
+        <div class="search-bar">
+          <div class="input-group">
+            <input id="input" type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類、地址"
+              aria-label="Restaurant Name..." value="{{keyword}}" aria-describedby="search-button">
+            <div class="input-group-append">
+              <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+            </div>
           </div>
         </div>
-      </form>
+      </div>
+      <div class="col-6">
+        <div class="d-flex justify-content-end">
+          <div class="search-option">
+            <select class="custom-select" onchange="this.form.submit()" name="option">
+              {{#each sortOptions}}
+              <option value="{{@key}}" {{#ifEquals ../targetOption @key}} selected {{/ifEquals}}>
+                {{this.text}}</option>
+              {{/each}}
+            </select>
+
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+</div>
+</div>
+</form>
+
+{{!-- <div class="row">
+    <div class="col-6">
+      <div class="search-bar">
+        <form action="/search">
+          <div class="input-group">
+            <input id="input" type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類、地址"
+              aria-label="Restaurant Name..." value="{{keyword}}" aria-describedby="search-button" required>
+            <div class="input-group-append">
+              <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="d-flex justify-content-end">
+        <div class="search-option">
+          <select class="custom-select">
+            {{#each searchOptions}}
+            <option value="{{@key}}" {{#ifEquals ../targetOption this}} selected {{/ifEquals}}>{{this}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+
+    </div>
+  </div> --}}
 </div>
 
 {{!-- all restaurants --}}
 {{#if restaurants}}
-<div class="container mt-5">
-  <div class="row mb-2">
-    {{#if keyword}}
-    {{else}}
-    <div class="col-md-10 col-12 mx-auto">
-      <a href="./restaurants/new" class="btn btn-success">新增口袋餐廳</a>
-    </div>
-    {{/if}}
-  </div>
+<div class="container mt-4">
   <div class="row">
-    <div class="col-md-10 col-12 mx-auto">
+    <div class="col-12 mx-auto">
       <div class="card-columns">
         {{!-- Iterate the restaurantInfo array --}}
         {{#each restaurants}}

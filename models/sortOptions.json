@@ -1,0 +1,32 @@
+{
+  "nameAsc": {
+    "key": "name",
+    "method": "asc",
+    "text": "A -> Z"
+  },
+  "nameDesc": {
+    "key": "name",
+    "method": "desc",
+    "text": "Z -> A"
+  },
+  "category": {
+    "key": "category",
+    "method": "asc",
+    "text": "類別"
+  },
+  "location": {
+    "key": "location",
+    "method": "asc",
+    "text": "地區"
+  },
+  "ratingAsc": {
+    "key": "rating",
+    "method": "asc",
+    "text": "評分遞增"
+  },
+  "ratingDesc": {
+    "key": "rating",
+    "method": "desc",
+    "text": "評分遞減"
+  }
+}

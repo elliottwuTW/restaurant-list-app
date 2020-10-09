@@ -15,8 +15,8 @@ app.engine('hbs', exphbs({
   extname: '.hbs',
   // Handlebars helper
   helpers: {
-    ifEquals: function (targetCategory, iteratedCategory, options) {
-      return (targetCategory === iteratedCategory) ? options.fn(this) : options.inverse(this)
+    ifEquals: function (targetItem, iteratedItem, options) {
+      return (targetItem === iteratedItem) ? options.fn(this) : options.inverse(this)
     }
   }
 }))
