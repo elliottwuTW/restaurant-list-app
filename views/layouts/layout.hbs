@@ -22,7 +22,10 @@
           我的餐廳清單
         </a>
         <form action="/restaurants/new" class="form-inline">
+          {{#if isAuthenticated}}
           <button class="btn btn-outline-success" type="submit">Create</button>
+          <a href="/users/logout" class="btn btn-outline-warning ml-3">Logout</a>
+          {{/if}}
         </form>
       </div>
     </nav>
