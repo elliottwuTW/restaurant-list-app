@@ -5,10 +5,10 @@ const router = express.Router()
 const Restaurant = require('../../models/restaurant')
 const sortOptions = require('../../models/sortOptions.json')
 
-router.get('/', (req, res) => { // Main page
-  Restaurant.find()
+router.get('/', (req, res) => {
+  Restaurant.find({ userId: req.user._id })
     .lean()
-    .sort({ name: 'asc' }) // ascending by name by default
+    .sort({ name: 'asc' })
     .then(restaurants => res.render('index', { restaurants, sortOptions }))
     .catch(err => console.error(err))
 })

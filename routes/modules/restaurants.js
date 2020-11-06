@@ -4,59 +4,62 @@ const router = express.Router()
 const Restaurant = require('../../models/restaurant')
 const restaurantStyles = require('../../models/restaurantStyle')
 
-// GET
-router.get('/new', (req, res) => { // Render the page that can create a new restaurant
+// Create a new restaurant page
+router.get('/new', (req, res) => {
   res.render('new', { restaurantStyles })
 })
-router.get('/:id', (req, res) => { // Read a specific restaurant info
-  const id = req.params.id
 
-  // get the specific restaurant
-  Restaurant.findById(id)
+// Read a specific restaurant info
+router.get('/:id', (req, res) => {
+  const userId = req.user._id
+  const _id = req.params.id
+
+  Restaurant.findOne({ _id, userId })
     .lean()
     .then(restaurant => res.render('detail', { restaurant }))
     .catch(err => console.error(err))
 })
-router.get('/:id/edit', (req, res) => { // Render the page that can update a specific restaurant info
-  const id = req.params.id
 
-  // get the specific restaurant
-  Restaurant.findById(id)
+// Modify restaurant info page
+router.get('/:id/edit', (req, res) => {
+  const userId = req.user._id
+  const _id = req.params.id
+
+  Restaurant.findOne({ _id, userId })
     .lean()
     .then(restaurant => res.render('edit', { restaurant, restaurantStyles }))
     .catch(err => console.error(err))
 })
 
-// POST
-router.post('', (req, res) => {
-  const newRestaurantInfo = Object.assign({}, req.body)
+router.post('/', (req, res) => {
+  const newRestaurantInfo = { ...Object.assign({}, req.body), ...{ userId: req.user._id } }
 
-  // create a new restaurant
   Restaurant.create(newRestaurantInfo)
     .then(() => res.redirect('/'))
     .catch(err => console.error(err))
 })
 
-// PUT
-router.put('/:id', (req, res) => { // Update the restaurant info, and redirect to the main page
-  const id = req.params.id
-  const updatedRestaurant = Object.assign({}, req.body)
+// Update the restaurant info
+router.put('/:id', (req, res) => {
+  const userId = req.user._id
+  const _id = req.params.id
+  const updatedRestaurant = { ...Object.assign({}, req.body), ...{ userId } }
 
-  // get the specific restaurant
-  Restaurant.findById(id)
+  Restaurant.findOne({ _id, userId })
     .then(restaurant => {
       Object.assign(restaurant, updatedRestaurant)
       restaurant.save()
     })
-    .then(() => res.redirect(`/restaurants/${id}`))
+    .then(() => res.redirect(`/restaurants/${_id}`))
     .catch(err => console.error(err))
 })
 
-// DELETE
-router.delete('/:id', (req, res) => { // Delete the specific restaurant, and redirect to the main page
-  const id = req.params.id
+// Delete the specific restaurant
+router.delete('/:id', (req, res) => {
+  const userId = req.user._id
+  const _id = req.params.id
 
-  Restaurant.findById(id)
+  Restaurant.findOne({ _id, userId })
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
     .catch(err => console.error(err))
