@@ -1,5 +1,6 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
+const FacebookStrategy = require('passport-facebook').Strategy
 const bcrypt = require('bcryptjs')
 
 const User = require('../models/user')
@@ -8,6 +9,7 @@ module.exports = app => {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  // 本地認證
   passport.use(new LocalStrategy(
     { usernameField: 'email', passReqToCallback: true },
     // 驗證函式
@@ -30,6 +32,37 @@ module.exports = app => {
         })
         .catch(err => done(err, null))
     }
+  ))
+
+  // FB 認證
+  passport.use(new FacebookStrategy({
+    clientID: '373018420569166',
+    clientSecret: '53cc3290824263126b2e0d4f73a1fc9b',
+    callbackURL: "http://localhost:3000/auth/facebook/callback",
+    profileFields: ['email', 'displayName']
+  },
+  (accessToken, refreshToken, profile, done) => {
+    const { email, name } = profile._json
+
+    User.findOne({ email })
+      .then(user => {
+        if (user) {
+          return done(null, user)
+        }
+        // 無此 email
+        const randomPassword = Math.random().toString(36).slice(8)
+        bcrypt
+          .genSalt(10)
+          .then(salt => bcrypt.hash(randomPassword, salt))
+          .then(hash => User.create({
+            name,
+            email,
+            password: hash
+          }))
+          .then(user => done(null, user))
+      })
+      .catch(err => done(err, null))
+  }
   ))
 
   passport.serializeUser((user, done) => {
