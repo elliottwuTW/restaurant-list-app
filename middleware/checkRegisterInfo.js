@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
   const { email, password, confirmPassword } = req.body
 
   const errors = []
-  // 欄位確認
+  // Fields check
   if (!email || !password || !confirmPassword) {
     errors.push({ msg: 'All fields are necessary except for Name' })
   }

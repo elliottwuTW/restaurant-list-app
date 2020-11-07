@@ -15,9 +15,9 @@ const db = require('../../config/mongoose')
 // Mock user data
 const SEED_USERS = [
   {
-    name: 'user1',
+    name: 'Elliott',
     email: 'user1@example.com',
-    password: '12345678'
+    password: '123'
   },
   {
     name: 'user2',
@@ -33,7 +33,7 @@ db.once('open', () => {
   const userPromise = []
   const restaurantPromise = []
   const userIds = []
-  // 建立使用者
+  // Build users
   SEED_USERS.forEach(seedUser => {
     const { name, email, password } = seedUser
     userPromise.push(
@@ -52,7 +52,7 @@ db.once('open', () => {
 
   Promise.all(userPromise)
     .then(() => {
-      // 建立餐廳
+      // Build restaurants
       SEED_RESTAURANTS.forEach((_, index) => {
         const userId = userIds[index]
         SEED_RESTAURANTS[index].forEach(restaurant => {

@@ -9,19 +9,18 @@ module.exports = app => {
   app.use(passport.initialize())
   app.use(passport.session())
 
-  // 本地認證
+  // Local strategy
   passport.use(new LocalStrategy(
     { usernameField: 'email', passReqToCallback: true },
-    // 驗證函式
+    // Verifying function
     (req, email, password, done) => {
       User.findOne({ email })
         .then(user => {
-          // 無此使用者
+          // No user with this email
           if (!user) {
             return done(null, false, req.flash('login_msg', 'User not found'))
           }
-
-          // 確認密碼
+          // Passwords check
           bcrypt.compare(password, user.password)
             .then(isMatch => {
               if (!isMatch) {
@@ -34,7 +33,7 @@ module.exports = app => {
     }
   ))
 
-  // FB 認證
+  // FB strategy
   passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_ID,
     clientSecret: process.env.FACEBOOK_SECRET,
@@ -49,7 +48,7 @@ module.exports = app => {
         if (user) {
           return done(null, user)
         }
-        // 無此 email
+        // No this email yet
         const randomPassword = Math.random().toString(36).slice(8)
         bcrypt
           .genSalt(10)
@@ -65,6 +64,7 @@ module.exports = app => {
   }
   ))
 
+  // Session
   passport.serializeUser((user, done) => {
     done(null, user.id)
   })

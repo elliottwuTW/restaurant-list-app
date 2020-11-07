@@ -1,6 +1,6 @@
 <!-- search bar -->
 <div class="container mt-4">
-  <form action="/filter">
+  <form action="/restaurants/filter">
     <div class="row">
       <div class="col-6">
         <div class="search-bar">
@@ -36,7 +36,7 @@
     {{!-- Iterate the restaurantInfo array --}}
     {{#each restaurants}}
     <div class="col-md-4 col-sm-6">
-      <a href="./restaurants/{{this._id}}" class="text-secondary">
+      <a href="/restaurants/{{this._id}}" class="text-secondary">
         <div class="card mb-3">
           <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
           <div class="card-body p-3">
