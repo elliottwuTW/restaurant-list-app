@@ -25,6 +25,10 @@ Users can
 - delete a specific restaurant
 - filter the restaurants by searching keywords or setting the sort option
 
+### Demo
+
+[餐廳清單](https://pure-temple-99083.herokuapp.com/)
+
 ### Quick Start
 
 ```
