@@ -61,11 +61,24 @@ router.get('/:id/edit', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const newRestaurantInfo = { ...Object.assign({}, req.body), ...{ userId: req.user._id } }
+  // validation
+  const phone = req.body.phone
+  const restaurantValidErrors = []
+  if (!phone.match(/^\(?(0[0-9])\)?[- ]?([0-9]{4})[- ]?([0-9]{4})$/)) {
+    restaurantValidErrors.push({ msg: 'Valid phone format : 0x-xxxx-xxxx 、 0x xxxx xxxx' })
+  }
 
-  Restaurant.create(newRestaurantInfo)
-    .then(() => res.redirect('/'))
-    .catch(err => console.error(err))
+  if (restaurantValidErrors.length > 0) {
+    res.render('new', {
+      restaurantStyles,
+      restaurantValidErrors
+    })
+  } else {
+    const newRestaurantInfo = { ...Object.assign({}, req.body), ...{ userId: req.user._id } }
+    Restaurant.create(newRestaurantInfo)
+      .then(() => res.redirect('/'))
+      .catch(err => console.error(err))
+  }
 })
 
 // Update the restaurant info
