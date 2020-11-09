@@ -54,6 +54,15 @@ npm run dev
 # As the server starts successfully, the terminal will show "The server is running on http://localhost:3000".
 ```
 
+### Mock Accounts
+
+- user1:
+  - email: user1@example.com
+  - password: 123
+- user2:
+  - email: user2@example.com
+  - password: 12345678
+
 ### Package Versions
 
 - Node.js : 14.4.0
